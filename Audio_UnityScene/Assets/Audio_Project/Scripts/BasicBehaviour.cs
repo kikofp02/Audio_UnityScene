@@ -261,6 +261,11 @@ public class BasicBehaviour : MonoBehaviour
 	// Common functions to any behaviour:
 
 	// Check if player is sprinting.
+	public virtual bool IsWalking()
+	{
+		return !sprint && IsMoving();
+	}
+
 	public virtual bool IsSprinting()
 	{
 		return sprint && IsMoving() && CanSprint();

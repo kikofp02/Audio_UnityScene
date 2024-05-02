@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 // MoveBehaviour inherits from GenericBehaviour. This class corresponds to basic walk and run behaviour, it is the default behaviour.
@@ -11,12 +12,14 @@ public class MoveBehaviour : GenericBehaviour
 	public string jumpButton = "Jump";              // Default jump button.
 	public float jumpHeight = 1.5f;                 // Default jump height.
 	public float jumpInertialForce = 10f;          // Default horizontal inertial force when jumping.
+	public FootstepSound footstepSound;
 
 	private float speed, speedSeeker;               // Moving speed.
 	private int jumpBool;                           // Animator variable related to jumping.
 	private int groundedBool;                       // Animator variable related to whether or not the player is on ground.
 	private bool jump;                              // Boolean to determine whether or not the player started a jump.
 	private bool isColliding;                       // Boolean to determine if the player has collided with an obstacle.
+
 
 	// Start is always called after any Awake functions.
 	void Start()
@@ -58,6 +61,8 @@ public class MoveBehaviour : GenericBehaviour
 		// Start a new jump.
 		if (jump && !behaviourManager.GetAnim.GetBool(jumpBool) && behaviourManager.IsGrounded())
 		{
+			footstepSound.BroadcastMessage("StopFootstepSound");
+
 			// Set jump related parameters.
 			behaviourManager.LockTempBehaviour(this.behaviourCode);
 			behaviourManager.GetAnim.SetBool(jumpBool, true);
@@ -121,10 +126,22 @@ public class MoveBehaviour : GenericBehaviour
 		speedSeeker += Input.GetAxis("Mouse ScrollWheel");
 		speedSeeker = Mathf.Clamp(speedSeeker, walkSpeed, runSpeed);
 		speed *= speedSeeker;
-		if (behaviourManager.IsSprinting())
+		if(footstepSound.IsPlaying() && !behaviourManager.IsMoving())
+		{
+            footstepSound.BroadcastMessage("StopFootstepSound");
+        }
+        if (!jump && behaviourManager.IsWalking())
+		{
+			footstepSound.stepInterval = 0.4f;
+			footstepSound.BroadcastMessage("PlayFootstepSound");
+		}
+		if (!jump && behaviourManager.IsSprinting())
 		{
 			speed = sprintSpeed;
-		}
+            footstepSound.stepInterval = 0.25f;
+            footstepSound.BroadcastMessage("PlayFootstepSound");
+        }
+
 
 		behaviourManager.GetAnim.SetFloat(speedFloat, speed, speedDampTime, Time.deltaTime);
 	}
