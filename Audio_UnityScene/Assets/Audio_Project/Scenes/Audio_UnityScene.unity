@@ -3869,7 +3869,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 198422, guid: 2d927feb0fbf1a7429c095369d395de7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2138021766}
   m_SourcePrefab: {fileID: 100100000, guid: 2d927feb0fbf1a7429c095369d395de7, type: 3}
 --- !u!1 &374966274
 GameObject:
@@ -10443,6 +10446,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73b9a287a502a0d44ba093849abc1ed1, type: 3}
+--- !u!1 &1152720700 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 198422, guid: 2d927feb0fbf1a7429c095369d395de7, type: 3}
+  m_PrefabInstance: {fileID: 374619687}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1153272797
 GameObject:
   m_ObjectHideFlags: 0
@@ -19983,6 +19991,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 408632, guid: 2d927feb0fbf1a7429c095369d395de7, type: 3}
   m_PrefabInstance: {fileID: 374619687}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2138021766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152720700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb544f1c2fa4314fb5877cd615ec778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2142318240
 GameObject:
   m_ObjectHideFlags: 0
@@ -20131,6 +20151,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4836675571907256211, guid: abc4db0121f93294aa766917ccc24d4a, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836675571907256211, guid: abc4db0121f93294aa766917ccc24d4a, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 9027056255647458154, guid: abc4db0121f93294aa766917ccc24d4a, type: 3}
