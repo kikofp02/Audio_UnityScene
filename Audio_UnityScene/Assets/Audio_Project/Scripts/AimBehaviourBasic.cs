@@ -9,6 +9,7 @@ public class AimBehaviourBasic : GenericBehaviour
 	public float aimTurnSmoothing = 0.15f;                                // Speed of turn response when aiming to match camera facing.
 	public Vector3 aimPivotOffset = new Vector3(0.5f, 1.2f,  0f);         // Offset to repoint the camera when aiming.
 	public Vector3 aimCamOffset   = new Vector3(0f, 0.4f, -0.7f);         // Offset to relocate the camera when aiming.
+	public FootstepSound footstepSound = null;
 
 	private int aimBool;                                                  // Animator variable related to aiming.
 	private bool aim;                                                     // Boolean to determine whether or not the player is aiming.
@@ -18,6 +19,7 @@ public class AimBehaviourBasic : GenericBehaviour
 	{
 		// Set up the references.
 		aimBool = Animator.StringToHash("Aim");
+		footstepSound = gameObject.GetComponent<FootstepSound>();
 	}
 
 	// Update is used to set features regardless the active behaviour.
@@ -31,10 +33,16 @@ public class AimBehaviourBasic : GenericBehaviour
 		else if (aim && Input.GetAxisRaw(aimButton) == 0)
 		{
 			StartCoroutine(ToggleAimOff());
-		}
+        }
 
 		// No sprinting while aiming.
 		canSprint = !aim;
+
+		if(aim && behaviourManager.IsMoving())
+		{
+			footstepSound.stepInterval = 0.5f;
+			footstepSound.BroadcastMessage("PlayFootstepSound");
+		}
 
 		// Toggle camera aim position left or right, switching shoulders.
 		if (aim && Input.GetButtonDown (shoulderButton))
