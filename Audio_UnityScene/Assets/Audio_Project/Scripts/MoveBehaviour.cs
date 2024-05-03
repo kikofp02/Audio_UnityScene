@@ -132,13 +132,13 @@ public class MoveBehaviour : GenericBehaviour
         }
         if (!jump && behaviourManager.IsWalking())
 		{
-			footstepSound.stepInterval = 0.4f;
+			footstepSound.stepInterval = 0.34f;
 			footstepSound.BroadcastMessage("PlayFootstepSound");
 		}
 		if (!jump && behaviourManager.IsSprinting())
 		{
 			speed = sprintSpeed;
-            footstepSound.stepInterval = 0.25f;
+            footstepSound.stepInterval = 0.22f;
             footstepSound.BroadcastMessage("PlayFootstepSound");
         }
 

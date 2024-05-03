@@ -1,71 +1,82 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class FootstepSound : MonoBehaviour
 {
-    public AudioClip[] footstepsOnSand;
-    public AudioClip[] footstepsOnMetal;
+    [SerializeField] AudioMixer audioMixer;
+    AudioMixerGroup[] GetAudioMixerGroups
+    {
+        get { return audioMixer.FindMatchingGroups(string.Empty); }
+    }
+
+    [SerializeField] AudioClip[] footstepsOnSand;
+    [SerializeField] AudioClip[] footstepsOnMetal;
 
     public string material;
-    
-    [Range(0.01f, 1f)]  public float stepInterval = 0.2f;
-    [Range(0.01f, 5f)]  public float fadeOutDuration = 2f;
 
+    [SerializeField] [Range(0.01f, 1f)] public float stepInterval = 0.2f;
+    [SerializeField] [Range(0.01f, 5f)] public float fadeOutDuration = 2f;
 
-    private AudioSource myAudioSource;
+    private AudioSource audioSource;
     private float stepTimer = 0f;
 
     private void Start()
     {
-        myAudioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void PlayFootstepSound()
     {
-        myAudioSource.volume = Random.Range(0.9f, 1.0f);
-        myAudioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.volume = Random.Range(0.9f, 1.0f);
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
 
         stepTimer += Time.deltaTime;
 
-        print(stepTimer);
+
 
         if (stepTimer >= stepInterval)
         {
             switch (material)
             {
+                
                 case "Sand":
-                    myAudioSource.PlayOneShot(footstepsOnSand[Random.Range(0, footstepsOnSand.Length)]);
+                    audioSource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Sand")[0];
+                    audioSource.PlayOneShot(footstepsOnSand[Random.Range(0, footstepsOnSand.Length)]);
                     break;
 
                 case "Metal":
-                    myAudioSource.PlayOneShot(footstepsOnMetal[Random.Range(0, footstepsOnMetal.Length)]);
+                    audioSource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Metal")[0];
+                    audioSource.PlayOneShot(footstepsOnMetal[Random.Range(0, footstepsOnMetal.Length)]);
                     break;
 
                 default:
                     break;
             }
+            print(audioSource.volume);
+
             stepTimer = 0f;
         }
     }
 
     IEnumerator FadeOutAndStop(float fadeDuration)
     {
-        float startVolume = myAudioSource.volume;
+        float startVolume = audioSource.volume;
 
-        while (myAudioSource.volume > 0)
+        while (audioSource.volume > 0)
         {
-            myAudioSource.volume -= startVolume * Time.deltaTime / fadeDuration;
+            audioSource.volume -= startVolume * Time.deltaTime / fadeDuration;
             yield return null;
         }
 
-        myAudioSource.Stop();
-        myAudioSource.volume = startVolume; // Reset volume to its original value
+        audioSource.Stop();
+        audioSource.volume = startVolume; // Reset volume to its original value
     }
 
     void StopFootstepSound()
     {
-        if (myAudioSource.isPlaying)
+        if (audioSource.isPlaying)
         {
             StartCoroutine(FadeOutAndStop(fadeOutDuration));
         }
@@ -73,7 +84,7 @@ public class FootstepSound : MonoBehaviour
 
     public bool IsPlaying()
     { 
-        return myAudioSource.isPlaying;
+        return audioSource.isPlaying;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -97,12 +108,12 @@ public class FootstepSound : MonoBehaviour
         switch (collision.gameObject.tag)
         {
             case "Sand":
-                if(myAudioSource.isPlaying)
-                   myAudioSource.Stop();
+                if(audioSource.isPlaying)
+                   audioSource.Stop();
                 break;
             case "Metal":
-                if (myAudioSource.isPlaying)
-                    myAudioSource.Stop();
+                if (audioSource.isPlaying)
+                    audioSource.Stop();
                 break;
 
             default:

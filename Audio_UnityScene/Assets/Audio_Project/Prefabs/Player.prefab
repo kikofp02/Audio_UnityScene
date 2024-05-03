@@ -7794,6 +7794,7 @@ MonoBehaviour:
   aimTurnSmoothing: 0.25
   aimPivotOffset: {x: 0.5, y: 1.2, z: 0}
   aimCamOffset: {x: 0, y: 0.4, z: -0.7}
+  footstepSound: {fileID: 0}
 --- !u!114 &5310841826578859864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12714,7 +12715,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8637996549776248783}
-  - component: {fileID: 1033658695230211271}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -12744,14 +12744,6 @@ Transform:
   - {fileID: 1850513469618298517}
   m_Father: {fileID: 9027056255647458154}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1033658695230211271
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7985617434479147821}
-  m_Enabled: 1
 --- !u!1 &7997735573183179561
 GameObject:
   m_ObjectHideFlags: 0
