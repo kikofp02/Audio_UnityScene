@@ -7,6 +7,12 @@ public class DoorCycleScript : MonoBehaviour
     Animator animator;
     GameObject[] players;
 
+    [SerializeField] private AudioSource doorOpenAudioSource = null;
+    [SerializeField] private float openDelay = 0;
+
+    [SerializeField] private AudioSource doorCloseAudioSource = null;
+    [SerializeField] private float closeDelay = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,10 +46,12 @@ public class DoorCycleScript : MonoBehaviour
             if (animator.GetBool("character_nearby") == true)
             {
                 //Sound fx to open
+                doorOpenAudioSource.PlayDelayed(openDelay);
             }
             else
             {
                 //Sound fx to close
+                doorCloseAudioSource.PlayDelayed(closeDelay);
             }
         }
     }
