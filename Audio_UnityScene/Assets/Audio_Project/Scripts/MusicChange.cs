@@ -21,7 +21,7 @@ public class MusicChange : MonoBehaviour
                 break;
 
             case "Indoor":
-                combatSnapshot.TransitionTo(fastTransitionTime);
+                //combatSnapshot.TransitionTo(fastTransitionTime);
                 break;
 
             default:
@@ -38,7 +38,7 @@ public class MusicChange : MonoBehaviour
                 break;
 
             case "Indoor":
-                calmSnapshot.TransitionTo(slowTransitionTime);
+                //calmSnapshot.TransitionTo(slowTransitionTime);
                 break;
 
             default:

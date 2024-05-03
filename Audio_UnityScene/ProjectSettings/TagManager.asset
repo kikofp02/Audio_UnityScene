@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Sand
   - Metal
+  - Outdoor
+  - Indoor
   layers:
   - Default
   - TransparentFX

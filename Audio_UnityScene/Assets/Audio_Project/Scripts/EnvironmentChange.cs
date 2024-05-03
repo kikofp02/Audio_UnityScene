@@ -10,13 +10,16 @@ public class EnvironmentChange : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Indoor")
-            indoorSnapshot.TransitionTo(0.5f);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Indoor")
-            outdoorSnapshot.TransitionTo(0.5f);
+        switch (other.gameObject.tag)
+        {
+            case "Indoor":
+                indoorSnapshot.TransitionTo(2f);
+                break;
+            case "Outdoor":
+                outdoorSnapshot.TransitionTo(2f);
+                break;
+            default:
+                break;
+        }
     }
 }
